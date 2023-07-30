@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Smart Login System - Login</title>
+    <link rel="stylesheet" href="login_style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Smart Login System</h1>
+      <form>
+        <label for="email-input">Email:</label>
+        <input type="email" id="email-input"placeholder="Email" required>
+        <label for="password-input">Password:</label>
+        <input type="password" id="password-input" placeholder="Password"required>
+        <button type="submit" id="login-btn">Login</button>
+        <p>Don't have an account? <a href="register.html">Sign Up</a></p>
+      </form>
+    </div>
+
+	<script>
+
+	var users = JSON.parse(localStorage.getItem('Users')) || [];
+
+	// Register event listener for the Login button
+	document.getElementById("login-btn").addEventListener("click", function(event) {
+	  // Prevent the default form submission behavior
+	  event.preventDefault();
+
+	  // Get the input values
+	  let email = document.getElementById("email-input").value;
+	  let password = document.getElementById("password-input").value;
+
+
+	if((users.some(person => person[0].Email === email))  && (users.some(person => person[1].Password === password))){
+		  localStorage.setItem("loggedInUser", email);
+		  window.location.href = "home.html";
+	} else if(!users.some(person => person[0].Email === email)){
+		alert("Invalid email. Please try again.");
+		return;
+	}else if(!users.some(person => person[1].Password === password)){
+		alert("Invalid password. Please try again.");
+		return;
+	}else{
+		alert("Invalid email or password. Please try again.");
+		return;
+	}
+	
+	});
+	</script>
+  </body>
+</html>

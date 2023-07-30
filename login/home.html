@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Smart Login System - Home</title>
+    <link rel="stylesheet" href="home_style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome to the Smart Login System</h1>
+      <p id="welcome-message"></p>
+      <button id="logout-btn">Logout</button>
+    </div>
+
+	<script>
+
+	// Check if the user is logged in
+	let loggedInUser = localStorage.getItem("loggedInUser");
+
+	if (loggedInUser) {
+	  // Update the welcome message on the home page
+	  document.getElementById("welcome-message").textContent = `Welcome, ${loggedInUser}!`;
+
+	  // Register event listener for the Logout button
+	  document.getElementById("logout-btn").addEventListener("click", function() {
+		// Clear the logged in user from the localStorage
+		//localStorage.removeItem("loggedInUser");
+
+		// Redirect to login page
+		window.location.href = "login.html";
+	  });
+	} else {
+	  // Redirect to login page
+	  window.location.href = "login.html";
+	}
+	</script>
+  </body>
+</html>

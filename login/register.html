@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Smart Login System - Register</title>
+    <link rel="stylesheet" href="register_style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Smart sign System</h1>
+      <form>
+		<label for="newusername">Username</label>
+        <input type="text" id="newusername" name="newusername"placeholder="Enter your name" required>
+        <label for="email-input">Email:</label>
+        <input type="email" id="email-input"placeholder="Email" required>
+        <label for="password-input">Password:</label>
+        <input type="password" id="password-input" placeholder="Password"required>
+        <button type="submit" id="register-btn">Register</button>
+        <p>Already have an account? <a href="login.html">Login</a></p>
+      </form>
+    </div>
+
+	<script>
+
+	var users = JSON.parse(localStorage.getItem('Users')) || [];
+
+	// Register event listener for the Register button
+	document.getElementById("register-btn").addEventListener("click", function(event) {
+	  // Prevent the default form submission behavior
+	  event.preventDefault();
+
+	  // Get the input values
+	  let email = document.getElementById("email-input").value;
+	  let password = document.getElementById("password-input").value;
+
+	  // Validate email format
+	  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	  if (!emailRegex.test(email)) {
+		alert("Please enter a valid email address.");
+		return;
+	  }
+		
+	  // Check if email is already registered
+	if(users.some(person => person[0].Email === email)){
+		 alert("Email already registered. Please use a different email address.");
+		return;
+	} else{
+		
+ 	var userData = [{Email:document.getElementById("email-input").value,
+	 Password:document.getElementById("password-input").value}];
+
+	 users.push(userData);
+	 localStorage.setItem('Users', JSON.stringify(users));
+	 
+	 localStorage.setItem("loggedInUser", email);
+	 window.location.href = "login.html";
+	}
+
+	});
+	</script>
+  </body>
+</html>
